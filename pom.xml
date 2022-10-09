@@ -1,0 +1,126 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.rascalmpl</groupId>
+	<artifactId>rascal-tutor</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<scm>
+		<developerConnection>scm:git:ssh://git@github.com/usethesource/rascal-tutor.git</developerConnection>
+	  <tag>HEAD</tag>
+  </scm>
+
+  <build>
+      <sourceDirectory>src</sourceDirectory>
+      <resources>
+          <resource>
+              <directory>src</directory>
+              <excludes>
+                  <exclude>**/*.java</exclude>
+                  <exclude>**/*.class</exclude>
+              </excludes>
+          </resource>
+          <resource>
+              <directory>.</directory>
+              <filtering>false</filtering>
+              <includes>
+                  <include>META-INF/RASCAL.MF</include>
+                  <include>src/**/*.rsc</include>
+                  <include>doc/**/*.md</include>
+              </includes>
+          </resource>
+      </resources>
+      <testSourceDirectory>src</testSourceDirectory>
+
+      <plugins>
+          <plugin>
+              <groupId>org.rascalmpl</groupId>
+              <artifactId>rascal-maven-plugin</artifactId>
+              <version>0.7.3</version>
+              <configuration>
+                  <errorsAsWarnings>true</errorsAsWarnings>
+                  <bin>${project.build.outputDirectory}</bin>
+                  <srcs>
+                      <src>${project.basedir}/src</src>
+                  </srcs>
+              </configuration>
+              <executions>
+                  <!--                  <execution>
+                      <id>rascal-tutor-compile</id>
+                      <phase>compile</phase>
+                      <goals>
+                          <goal>compile</goal>
+                      </goals>
+                  </execution>
+                  <execution>
+                      <id>rascal-tutor</id>
+                      <phase>pre-package</phase>
+                      <goals>
+                          <goal>package</goal>
+                      </goals>
+                  </execution> -->
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>3.0.0-M3</version>
+              <executions>
+                  <execution>
+                      <id>test</id>
+                      <phase>test</phase>
+                      <configuration>
+                          <argLine>
+                              -ea
+                              -Xmx2G
+                              -Xss128m
+                              -Dfile.encoding=UTF-8
+                          </argLine>
+                          <includes>
+                              <include>**/*Tests.java</include>
+                          </includes>
+                          <testSourceDirectory>${basedir}/src/</testSourceDirectory>
+                      </configuration>
+                      <goals>
+                          <goal>test</goal>
+                      </goals>
+                  </execution>
+              </executions>
+
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.8.0</version>
+              <configuration>
+                  <compilerArgument>-parameters</compilerArgument> <!-- make sure parameters are compiled by name into the jar -->
+                  <release>11</release>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+
+
+
+  <repositories>
+      <repository>
+          <id>usethesource</id>
+          <url>https://releases.usethesource.io/maven/</url>
+      </repository>
+  </repositories>
+  <pluginRepositories>
+      <pluginRepository>
+          <id>usethesource</id>
+          <url>https://releases.usethesource.io/maven/</url>
+      </pluginRepository>
+  </pluginRepositories>
+
+  <dependencies>
+      <dependency>
+          <groupId>org.rascalmpl</groupId>
+          <artifactId>rascal</artifactId>
+          <version>0.25.4</version>
+      </dependency>
+  </dependencies>
+</project>

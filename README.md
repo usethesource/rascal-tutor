@@ -11,5 +11,5 @@ The tutor is used to:
 It has some other bells and whistles that make it easy to write documentation
 for Rascal libraries and projects. 
 
-The tutor is linked with [Rascal Maven Plugin][https://github.com/usethesource/rascal-maven-plugin]
+The tutor is linked with [Rascal Maven Plugin](https://github.com/usethesource/rascal-maven-plugin)
 for easy integration into your projects.

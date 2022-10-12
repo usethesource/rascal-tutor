@@ -129,7 +129,7 @@
       <dependency>
           <groupId>org.rascalmpl</groupId>
           <artifactId>rascal</artifactId>
-          <version>0.25.4</version>
+          <version>0.26.1</version>
       </dependency>
   </dependencies>
 </project>

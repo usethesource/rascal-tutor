@@ -37,7 +37,7 @@
           <plugin>
               <groupId>org.rascalmpl</groupId>
               <artifactId>rascal-maven-plugin</artifactId>
-              <version>0.7.3</version>
+              <version>0.9.9-SNAPSHOT</version>
               <configuration>
                   <errorsAsWarnings>true</errorsAsWarnings>
                   <bin>${project.build.outputDirectory}</bin>
@@ -136,6 +136,11 @@
           <artifactId>selenium-java</artifactId>
           <version>4.5.3</version>
           <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-firefox-driver</artifactId>
+          <version>4.5.3</version>
       </dependency>
   </dependencies>
 </project>

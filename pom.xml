@@ -3,12 +3,12 @@
 
 	<groupId>org.rascalmpl</groupId>
 	<artifactId>rascal-tutor</artifactId>
-	<version>0.3</version>
+	<version>0.3.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/usethesource/rascal-tutor.git</developerConnection>
-	  <tag>v0.3</tag>
+	  <tag>HEAD</tag>
   </scm>
 
   <build>
@@ -37,7 +37,7 @@
           <plugin>
               <groupId>org.rascalmpl</groupId>
               <artifactId>rascal-maven-plugin</artifactId>
-              <version>0.9.8</version>
+              <version>0.9.9-SNAPSHOT</version>
               <configuration>
                   <errorsAsWarnings>true</errorsAsWarnings>
                   <bin>${project.build.outputDirectory}</bin>

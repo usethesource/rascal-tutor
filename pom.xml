@@ -11,6 +11,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>11</maven.compiler.release>
+
+        <rascal.version>0.28.9-SNAPSHOT</rascal.version>
+        <rascal-maven.version>0.15.2</rascal-maven.version>
     </properties>
 
     <scm>
@@ -34,7 +38,7 @@
                 <includes>
                     <include>META-INF/RASCAL.MF</include>
                     <include>src/**/*.rsc</include>
-                    <include>doc/**/*.md</include>
+                    <include>doc/**/*.*</include>
                 </includes>
             </resource>
         </resources>
@@ -44,15 +48,7 @@
             <plugin>
                 <groupId>org.rascalmpl</groupId>
                 <artifactId>rascal-maven-plugin</artifactId>
-                <version>0.15.1</version>
-                <configuration>
-                    <errorsAsWarnings>true</errorsAsWarnings>
-                    <bin>${project.build.outputDirectory}</bin>
-                    <srcs>
-                        <src>${project.basedir}/doc/Tutor</src>
-                        <src>${project.basedir}/src</src>
-                    </srcs>
-                </configuration>
+                <version>${rascal-maven.version}</version>
                 <executions>
                     <execution>
                         <id>tutor-compile</id>
@@ -74,7 +70,20 @@
                         <goals>
                             <goal>tutor</goal>
                         </goals>
-                    </execution>
+                        <configuration>
+                            <enableStandardLibrary>false</enableStandardLibrary>
+                            <errorsAsWarnings>true</errorsAsWarnings>
+                            <isPackageCourse>true</isPackageCourse>
+                            <bin>${project.build.outputDirectory}</bin>
+                            <srcs>
+                                <src>${project.basedir}/doc/Tutor</src>
+                                <src>${project.basedir}/src</src>
+                                    </srcs>
+                            <ignores>
+                                <ignore>${project.basedir}/src/lang/rascal/tutor/examples</ignore>
+                            </ignores>
+                        </configuration>
+                        </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -120,7 +129,6 @@
                 <configuration>
                     <!-- make sure parameters are compiled by name into the jar -->
                     <compilerArgument>-parameters</compilerArgument>
-                    <release>11</release>
                 </configuration>
             </plugin>
         </plugins>
@@ -144,7 +152,7 @@
         <dependency>
             <groupId>org.rascalmpl</groupId>
             <artifactId>rascal</artifactId>
-            <version>0.28.2</version>
+            <version>${rascal.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

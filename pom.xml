@@ -79,6 +79,7 @@
                                     </srcs>
                             <ignores>
                                 <ignore>${project.basedir}/src/lang/rascal/tutor/examples</ignore>
+                                <ignore>${project.basedir}/src/lang/rascal/tutor/questions</ignore>
                             </ignores>
                         </configuration>
                         </execution>

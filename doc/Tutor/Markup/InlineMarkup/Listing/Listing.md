@@ -35,7 +35,7 @@ which syntax highlighter to use.
    * Using the `error` label to a code block, an error will be expected and printed back to the user. This is to demonstrate error messages to the reader.
 * The "magic comments" `highlight-next-line`, `highlight-start`, and `highlight-end` give you a way to highlight
 selected lines in the code. Also you can use ranges like this `{1,4--6,9}`.
-* If a `rascal-shell` or `rascal-prepare` produces an interactive ((Library:Content)) value, then the compiler will wait one second and try to make a screenshot of the browser's visual content. That screenshot is immediately included in the current document at that place. See ((Library:vis::Charts)) for an example.
+* If a `rascal-shell` or `rascal-prepare` produces an interactive `Content` value, then the compiler will wait one second and try to make a screenshot of the browser's visual content. That screenshot is immediately included in the current document at that place. See ((Library:vis::Charts)) for an example.
 
 Use `showLineNumbers` to render line numbers in the code examples.
 

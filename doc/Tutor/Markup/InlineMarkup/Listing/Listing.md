@@ -28,14 +28,14 @@ int fac(int n) {
 
 * You can use the triple backquotes to encapsulate a piece of literal source text. The language name indicates
 which syntax highlighter to use.
-   * If you use `rascal-shell` as a language name, then the code is executed line-by-line by a Rascal shell
-and the output is collected. 
+   * If you use `rascal-shell` as a language name, then the code is executed line-by-line by a Rascal shell and the output is collected. 
    * With `rascal-prepare` the code is executed in the current environment but no output is shown.
    * Finally using `rascal-include` you can include modules from disk that are on the current search path.
    * Either `rascal-shell`, `rascal-prepare` or `rascal-include` code with an unexpected error in it will _fail_ the documentation build and an error message will be reported. The build will continue to find other issues and compile all the other files.
    * Using the `error` label to a code block, an error will be expected and printed back to the user. This is to demonstrate error messages to the reader.
 * The "magic comments" `highlight-next-line`, `highlight-start`, and `highlight-end` give you a way to highlight
 selected lines in the code. Also you can use ranges like this `{1,4--6,9}`.
+* If a `rascal-shell` or `rascal-prepare` produces an interactive ((Library:Content)) value, then the compiler will wait one second and try to make a screenshot of the browser's visual content. That screenshot is immediately included in the current document at that place. See ((Library:vis::Charts)) for an example.
 
 Use `showLineNumbers` to render line numbers in the code examples.
 
@@ -180,8 +180,10 @@ int fac(int n) {
 #### Benefits
 
 * Code examples that run at documentation compile-time are "always" tested and correct when deployed.
+* Screenshots are always up-to-date with the latest look-and-feel of the example
 
 #### Pitfalls
 
+* Screenshots are only taken when the compiler is properly configured to link selenium and chrome
 
 

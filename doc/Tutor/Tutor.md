@@ -19,12 +19,13 @@ The RascalTutor is an interactive ((Authoring)) and learning environment intende
 It is based on the following principles and ideas:
 
 * [Write]((Authoring)) standard Markdown in normal files and folders that can be edited using any Markdown editor.
-* Generates Docusauris Markdown files in a file hierarchy that can be included easily in a static markdown website.
+* Generates Docusaurus Markdown files in a file hierarchy that can be included easily in a static markdown website.
 * The basic notion is a ((Concept)). Each concept has a _name_ and contains a fixed set of subsections that describe it.
 * A course is a _concept tree_:
   The central subject of the course is the root of the concept tree, and all subtrees further explain their parent concept.
 * A Rascal code module is a ((Concept)) to the tutur compiler as well, in order to provide ((API)) documentation for every Rascal module. The declarations it contains are not sub-concepts but rather sub-sections of that concept.
 * A folder with Rascal modules is also a ((Concept). If it has an `index.md` file this is used to document it, otherwise an `index.md` file is generated.
+* Concepts, as described above, can easily be [linked by short names]((LinkingConcepts)), and disambiguated with longer names when necessary.
 
 A _student_ using a course can:
 
@@ -42,7 +43,7 @@ An _author_ of a course can:
 * Recompile the course.
 * Inspect the warnings that are generated for the whole course in order to 
   control the quality of the concept descriptions.
-* Create links between concepts (in different courses)
+* Create [links]((LinkingConcepts)) between concepts (in different courses)
 * Inline images in the same folder/directory as the concept
 * Use Rascal code to create (static) visuals
 

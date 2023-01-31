@@ -1,5 +1,9 @@
 ---
 title: Reference to Concept
+keywords:
+    - reference
+    - linking
+    - link
 ---
 
 #### Synopsis
@@ -9,7 +13,7 @@ Refer to a concept in this course or another course.
 #### Syntax
 
 ``````
-((DisplayName))
+((ConceptName))
 ((ParentConceptName-ConceptName))
 ((FullDashSeparatedPathTo-ConceptName))
 ((Course))
@@ -24,6 +28,9 @@ Refer to a concept in this course or another course.
 ((Course:module:a::b::ModuleName))
 ((package:a::b))
 ((Course:package:a::b))
+((data:ADTName))
+((syntax::SyntaxName))
+((function::functionName))
 ``````
 
 #### Types
@@ -38,7 +45,6 @@ Above are all the ways a concept can be linked:
 * Otherwise the full path to the root of the course can be used, where `/` is replaced by `-`
 * Rascal modules can be referenced by name and by their fully qualified name
 * To disambiguate modules from concept names, the `module` and `package` prefixes come in handy.
-
 
 #### Examples
 

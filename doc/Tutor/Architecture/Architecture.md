@@ -36,10 +36,11 @@ The important features of the pre-processor, "compiler", are:
    * data declarations with their `doc`, `synopsis`, `examples` etc. tags
    * (overloaded) function declarations with their `doc`, `synopsis`, `examples` etc. tags
    * alias declarations with their `doc`, `synopsis`, `examples` etc. tags
+1. Screenshots of interactive ((Library:module:Content) visualizations can be made by configuring the compiler to use selenium and chrome.
 
 Features on the TODO list are:
 1. Interactive Questions (have to be revived)
-1. Screenshots of interactive ((Library:module:Content) visualizations
+
 
 To implement these features the following components are relevant:
 * `lang::rascal::tutor::Indexer` implements indexing and lookup

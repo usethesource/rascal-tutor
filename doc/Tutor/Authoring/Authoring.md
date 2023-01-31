@@ -44,6 +44,5 @@ Concepts are represented as directories for the following reasons:
 
 #### Pitfalls
 
-* There is no editing support or incremental course compilation available (yet).
 * Special features like code execution and cross-referencing concepts are not implemented by generic Markdown editors, so you have to wait and see what happens until you compile the course.
 * All images are referenced from `/assets/` so images have to be installed there on any website you want to include the documentation in.

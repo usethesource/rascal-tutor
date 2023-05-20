@@ -14,7 +14,7 @@ compiler has generated such a consistent folder of interconnected markdown files
 
 The important features of the pre-processor, "compiler", are:
 
-1. The compiler is configured via ((util::Reflective::PathConfig)), where:
+1. The compiler is configured via `util::Reflective::PathConfig`, where:
    * each entry in the `srcs` list is a single _course_
    * each entry in the `libs` list, be it a jar file or not, is searched for an `index.value` file to augment the current index. 
 1. Concept hierarchy - each folder `/X` has its own index file, called either `X/X.md` or `X/index.md`. Nested folders equal nested concepts.
@@ -27,7 +27,7 @@ The important features of the pre-processor, "compiler", are:
    * The compiler reports missing links and ambiguous links as errors.
    * A single `index.value` file is written in the output folder for future reference by depending projects.
 1. Code execution ensures lively demonstrations which are checked for correctness. 
-   * Code blocks marked `rascal-shell` are executed line-by-line on the REPL prompt. Each prompt starts with a fresh environment. All error and standard output is captured and printed back. ((Library:module:Content)) that serves HTML or any other file is also inlined in the output Markdown file.
+   * Code blocks marked `rascal-shell` are executed line-by-line on the REPL prompt. Each prompt starts with a fresh environment. All error and standard output is captured and printed back. The `Content` module that serves HTML or any other file is also inlined in the output Markdown file.
    * Code blocks marked `rascal-shell,continue` are executed in the previously constructed environment (from top to bottom in the Markdown file) and behave the same otherwise.
    * Code blocks marked `rascal-prepare` with or without `continue` behave the same as above, except that no output or input is printed back into the output file.
 1. Links written between `((` and `))` are resolved using the previously described index. 

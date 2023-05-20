@@ -32,10 +32,10 @@ If a concept is a Rascal source module:
 * Add @synopsis, @description, @examples, etc. tags to every notable declaration in the module
 * Save the file.
 
-If a concept is a ((Concept)) or ((Rascal:Module)) container only:
+If a concept is a ((Concept)) or Rascal module container only:
 
 * Create the folder `MyConcept`
-* Add new `SubConcept`s as above or new ((Rascal:Module))s, as above.
+* Add new `SubConcept`s as above or new Rascal modules, as above.
 * an `index.md` file will be generated for the folder
 
 #### Examples

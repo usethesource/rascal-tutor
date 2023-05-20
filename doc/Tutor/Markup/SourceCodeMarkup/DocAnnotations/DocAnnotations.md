@@ -139,8 +139,6 @@ This will be expanded to
 ```
 ``````
 
-The final result is the section of the DateTime module on the now function [here]((Library:DateTime-now)).
-
 #### Benefits
 
 * A (small) part of documentation writing is automated.

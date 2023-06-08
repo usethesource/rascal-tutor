@@ -12,7 +12,7 @@
         <maven.compiler.release>11</maven.compiler.release>
 
         <rascal.version>0.30.1</rascal.version>
-        <rascal-maven.version>0.15.4</rascal-maven.version>
+        <rascal-maven.version>0.18.0</rascal-maven.version>
     </properties>
 
     <scm>

@@ -11,8 +11,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <rascal.version>0.30.1</rascal.version>
-        <rascal-maven.version>0.18.0</rascal-maven.version>
+        <rascal.version>0.30.6</rascal.version>
+        <rascal-maven.version>0.18.1</rascal-maven.version>
     </properties>
 
     <scm>
@@ -62,7 +62,7 @@
                             <goal>package</goal>
                         </goals>
                     </execution>
-                    <execution>
+                    <!-- bootstrap is broken. see issue #22 <execution>
                         <id>default-cli</id>
                         <phase>compile</phase>
                         <goals>
@@ -82,7 +82,7 @@
                                 <ignore>${project.basedir}/src/lang/rascal/tutor/questions</ignore>
                             </ignores>
                         </configuration>
-                        </execution>
+                    </execution> -->
                 </executions>
             </plugin>
             <plugin>

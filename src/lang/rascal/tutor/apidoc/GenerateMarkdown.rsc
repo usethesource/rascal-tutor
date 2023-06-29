@@ -93,7 +93,7 @@ list[Output] declInfo2Doc(str parent, d:moduleInfo(), list[str] overloads, PathC
         out("---"),
         Output::empty(),
         out("\<div class=\"theme-doc-version-badge badge badge--secondary\"\>rascal-<getRascalVersion()>\</div\><if (pcfg.isPackageCourse) {> \<div class=\"theme-doc-version-badge badge badge--secondary\"\><pcfg.packageName>-<pcfg.packageVersion>\</div\><}>"),
-        Output::empty(),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         out("#### Usage"),
         Output::empty(),
         out("```rascal"),
@@ -119,6 +119,7 @@ list[Output] declInfo2Doc(str parent, d:moduleInfo(), list[str] overloads, PathC
 list[Output] declInfo2Doc(str parent, d:functionInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## function <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         out("```rascal"),
         *([out(defLine), empty() | ov <- overloads, str defLine <- split("\n", ov)][..-1]),
         out("```"),
@@ -129,7 +130,7 @@ list[Output] declInfo2Doc(str parent, d:functionInfo(), list[str] overloads, Pat
 list[Output] declInfo2Doc(str parent, d:testInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## test <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
-        Output::empty(),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         out("```rascal"),
         *[out(defLine) | str defLine <- split("\n", d.fullTest)],
         out("```"),
@@ -143,7 +144,7 @@ list[Output] declInfo2Doc(str parent, d:testInfo(), list[str] overloads, PathCon
  list[Output] declInfo2Doc(str parent, d:dataInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## data <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
-        empty(),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         *[
             out("```rascal"),
             *[out(defLine) | str defLine <- split("\n", ov)], 
@@ -157,7 +158,7 @@ list[Output] declInfo2Doc(str parent, d:testInfo(), list[str] overloads, PathCon
 list[Output] declInfo2Doc(str parent, d:syntaxInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## syntax <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
-        empty(),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         *[
             out("```rascal"),
             *[out(defLine) | str defLine <- split("\n", ov)], 
@@ -171,9 +172,9 @@ list[Output] declInfo2Doc(str parent, d:syntaxInfo(), list[str] overloads, PathC
 list[Output] declInfo2Doc(str parent, d:aliasInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## alias <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
-        empty(),
+        *[out("\> <c>") | docTag(label="synopsis", content=str c) <- d.docs],
         out("```rascal"),
-        *[out(removeNewlines(ov)), empty() | ov <- overloads],
+        *[out(removeNewlines(ov)), empty() | ov <- overloads][..-1],
         out("```"),
         empty(),
         *tags2Markdown(d.docs, pcfg, exec, ind, dtls, demo)
@@ -185,15 +186,16 @@ default list[Output] declInfo2Doc(str parent, DeclarationInfo d, list[str] overl
 list[Output] tags2Markdown(list[DocTag] tags, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) 
     = [
         // every doc tag has its own header title, except the "doc" tag which may contain them all (backward compatibility)
-        *(l != "doc" ? [out("#### <capitalize(l)>"), empty()] : []),
-        
+        *(l notin {"doc", "description", "synopsis"} ? [out("#### <capitalize(l)>"), empty()] : []),
+        *(l == "description" ? [empty()] : []),
+
         // here is where we get the origin information into the right place for error reporting:
         *compileMarkdown(split("\n", c), s.begin.line, s.offset, pcfg, exec, ind, dtls),
 
         empty() 
 
         // this assumes that the doc tags have been ordered correctly already by the extraction stage
-        | docTag(label=str l, src=s, content=str c) <- tags
+        | docTag(label=str l, src=s, content=str c) <- tags, l != "synopsis"
     ];
 
 public str basename(str cn){

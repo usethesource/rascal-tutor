@@ -197,6 +197,7 @@ rel[str, DocTag] getTagContents(Tags tags){
   return m;
 }
 
+
 @synopsis{lists the supported documentation tags in the prescribed order}
 list[DocTag] sortedDocTags(rel[str, DocTag] tags) 
   = [ *tags["doc"],

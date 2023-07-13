@@ -3,7 +3,7 @@
 
     <groupId>org.rascalmpl</groupId>
     <artifactId>rascal-tutor</artifactId>
-    <version>0.12.5-SNAPSHOT</version>
+    <version>0.12.5</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -17,7 +17,7 @@
 
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/usethesource/rascal-tutor.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v0.12.5</tag>
     </scm>
 
     <build>
@@ -160,7 +160,7 @@
         <dependency>
             <groupId>org.rascalmpl</groupId>
             <artifactId>rascal</artifactId>
-            <version>${rascal.version}</version>
+            <version>0.33.2</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

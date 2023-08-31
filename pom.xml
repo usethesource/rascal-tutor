@@ -11,8 +11,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <rascal.version>0.33.2-RC3-SNAPSHOT</rascal.version>
-        <rascal-maven.version>0.19.4</rascal-maven.version>
+        <rascal-maven.version>0.20.0</rascal-maven.version>
     </properties>
 
     <scm>

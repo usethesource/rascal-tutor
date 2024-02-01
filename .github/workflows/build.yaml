@@ -28,15 +28,19 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and Test
-      - uses: browser-actions/setup-chrome@latest
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: 1047731 # v107
       - run: which chrome
-      - uses: nanasess/setup-chromedriver@v1
+
+      - name: Setup Selenium
+        uses: nanasess/setup-chromedriver@v1
         with:
           chromedriver-version: '107.0.5304.62'
       - run: which chromedriver
+
+      - name: Build and Test
         run: mvn -B --update-snapshots compile test
 
       - name: Attach artifact

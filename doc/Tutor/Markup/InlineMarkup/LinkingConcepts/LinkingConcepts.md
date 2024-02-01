@@ -1,7 +1,8 @@
 ---
-title: Reference to Concept
+title: Linking to Concepts
 keywords:
     - reference
+    - referring
     - linking
     - link
 ---
@@ -52,13 +53,13 @@ The concept name of this concept is `ReferenceToConcept` while its title is `Ref
 
 We can create a reference to the `InlineMarkup` concept in the current course in the following ways:
 
-* `\((Inline Markup))` (using the display name) gives ((Inline Markup)).
-* `\((Markup-InlineMarkup))` (using its parent concept name and concept name) gives ((Markup-InlineMarkup)).
-* `\[see inline markup]((Tutor:Markup-InlineMarkup))` gives [see inline markup]((Tutor:Markup-InlineMarkup))
+* `((Inline Markup))` (using the display name) gives ((Inline Markup)).
+* `((Markup-InlineMarkup))` (using its parent concept name and concept name) gives ((Markup-InlineMarkup)).
+* `[see inline markup]((Tutor:Markup-InlineMarkup))` gives [see inline markup]((Tutor:Markup-InlineMarkup))
 
 Here is a reference to another course:
 
-* `\[Prelude collection]((Library:Prelude))` gives [Prelude collection]((Library:Prelude)).
+* `[Prelude collection]((Library:Prelude))` gives [Prelude collection]((Library:Prelude)).
 
 #### Benefits
 

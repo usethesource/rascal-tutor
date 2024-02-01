@@ -41,7 +41,7 @@ jobs:
       - run: which chromedriver
 
       - name: Build and Test
-        run: mvn -B --update-snapshots compile test
+        run: mvn -B -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver -Dwebdriver.chrome.browser=`which chrome` --update-snapshots compile test
 
       - name: Attach artifact
         id: build-artifact

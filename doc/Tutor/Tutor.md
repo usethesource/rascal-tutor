@@ -24,7 +24,8 @@ It is based on the following principles and ideas:
 * A course is a _concept tree_:
   The central subject of the course is the root of the concept tree, and all subtrees further explain their parent concept.
 * A Rascal code module is a ((Concept)) to the tutur compiler as well, in order to provide ((API)) documentation for every Rascal module. The declarations it contains are not sub-concepts but rather sub-sections of that concept.
-* A folder with Rascal modules is also a ((Concept)). If it has an `index.md` file this is used to document it, otherwise an `index.md` file is generated.
+* A folder with Rascal modules is also a ((Concept)). 
+If it has an `index.md` file this is used to document it, otherwise an `index.md` file is generated.
 * Concepts, as described above, can easily be [linked by short names]((LinkingConcepts)), and disambiguated with longer names when necessary.
 
 A _student_ using a course can:

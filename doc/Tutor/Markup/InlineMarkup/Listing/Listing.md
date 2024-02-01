@@ -1,12 +1,13 @@
 ---
 title: Listing
 keywords:
-    rascal-shell
-    listing
-    rascal-prepare
-    rascal-commands
-    rascal-include
-    include
+    - rascal-shell
+    - listing
+    - source
+    - rascal-prepare
+    - rascal-commands
+    - rascal-include
+    - include
 ---
 
 #### Synopsis

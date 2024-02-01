@@ -32,13 +32,13 @@ Include (executable) source code examples in the document.
 ```rascal-shell,errors
 1 / 0
 ```
-`````
+``````
 * Rascal shell execution with continued environment from previous code block
 ``````
 ```rascal-shell,continue
 a + b; // where a and b where declared in an earlier listing
 ```
-`````
+``````
 * Hidden Rascal shell execution without any output (no code, no values, no prints)
 ``````
 ```rascal-prepare

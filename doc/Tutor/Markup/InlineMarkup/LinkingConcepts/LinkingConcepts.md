@@ -58,7 +58,7 @@ We can create a reference to the `InlineMarkup` concept in the current course in
 
 Here is a reference to another course:
 
-* `\[If statement]((Rascal:Statements-If))` gives [If statement]((Rascal:Statements-If)).
+* `\[Prelude collection]((Library:Prelude))` gives [Prelude collection]((Library:Prelude)).
 
 #### Benefits
 

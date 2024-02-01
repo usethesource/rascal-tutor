@@ -70,7 +70,7 @@
                             <goal>package</goal>
                         </goals>
                     </execution>
-                    <!-- bootstrap is broken. see issue #22 <execution>
+                    <execution>
                         <id>default-cli</id>
                         <phase>compile</phase>
                         <goals>
@@ -90,7 +90,7 @@
                                 <ignore>${project.basedir}/src/lang/rascal/tutor/questions</ignore>
                             </ignores>
                         </configuration>
-                    </execution> -->
+                    </execution> 
                 </executions>
             </plugin>
             <plugin>
@@ -159,7 +159,7 @@
         <dependency>
             <groupId>org.rascalmpl</groupId>
             <artifactId>rascal</artifactId>
-            <version>0.35.0-RC5</version>
+            <version>0.35.0-RC6</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

@@ -8,11 +8,11 @@ The display (presentation) name of a concept.
 
 #### Syntax
 
-```
+``````
 ---
 title: _ConceptName_
 ---
-```
+``````
 
 #### Description
 

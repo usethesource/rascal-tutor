@@ -45,6 +45,7 @@ barChart({<"bike",20>, <"car", 80>})
 ``````
 
 This produces:
+
 ```rascal-prepare
 import vis::Charts;
 barChart({<"bike",20>, <"car", 80>})
@@ -52,7 +53,7 @@ barChart({<"bike",20>, <"car", 80>})
 
 #### Benefits
 
-* Screenshots don't lie; you always see it in the documentation as the user will see it in their browser
+* Screenshots don't lie; you always see it in the documentation as the user will see it in their browser.
 
 #### Pitfalls
 

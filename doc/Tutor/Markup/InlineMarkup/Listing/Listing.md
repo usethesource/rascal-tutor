@@ -81,10 +81,9 @@ which syntax highlighter to use. You can use all the builtin languages of the do
    * If an error is produced by a code block, but the error label is not used, an error will be printed and the compilation will fail.
 * The "magic comments" `highlight-next-line`, `highlight-start`, and `highlight-end` give you a way to highlight
 selected lines in the code. Also you can use ranges like this `{1,4--6,9}`.
-* If a `rascal-shell`, `rascal-commands` or `rascal-prepare` produces an interactive `Content` value, then the compiler will wait one second and try to make a screenshot of the browser's visual content. That screenshot is immediately included in the current document at that place. See ((Library:vis::Charts)) for an example.
+* If a `rascal-shell`, `rascal-commands` or `rascal-prepare` produces an interactive `Content` value, then the compiler will wait one second and try to make a [screenshot]((Screenshots)) of the browser's visual content. That [screenshot]((Screenshots)) is immediately included in the current document at that place. 
 * Use `showLineNumbers` to render line numbers in the code examples.
 * If you use `rascal` as a language, no checking occurs. There is only syntax highlighting.
-* The ((Screenshots)) feature is a special effect of ((Listing)), described [here]((Screenshots))
 
 #### Examples
 

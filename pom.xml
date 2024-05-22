@@ -80,6 +80,7 @@
                             <enableStandardLibrary>false</enableStandardLibrary>
                             <errorsAsWarnings>false</errorsAsWarnings>
                             <isPackageCourse>true</isPackageCourse>
+                            <releaseNotes>${project.basedir}/RELEASE-NOTES.md</releaseNotes>
                             <bin>${project.build.outputDirectory}</bin>
                             <srcs>
                                 <src>${project.basedir}/doc/Tutor</src>

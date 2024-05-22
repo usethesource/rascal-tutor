@@ -1,4 +1,10 @@
 
+### 0.18.5
+
+* New documentation section @deprecated for all Rascal declarations added. Will generate an admonition
+near the synopsis.
+* All defaults for RELEASE-NOTES, FUNDING and CITATION have the extension `.md` added to them now.
+
 ### 0.18.3
 
 * Fixes example screenshots

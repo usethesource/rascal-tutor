@@ -11,7 +11,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <rascal-maven.version>0.27.4-RC3</rascal-maven.version>
+        <rascal-maven.version>0.27.4</rascal-maven.version>
     </properties>
 
     <scm>
@@ -70,7 +70,6 @@
                             <goal>package</goal>
                         </goals>
                     </execution>
-                    <!-- disabled for boot release
                     <execution>
                         <id>default-cli</id>
                         <phase>compile</phase>
@@ -92,7 +91,7 @@
                                 <ignore>${project.basedir}/src/lang/rascal/tutor/questions</ignore>
                             </ignores>
                         </configuration>
-                    </execution>  -->
+                    </execution> 
                 </executions>
             </plugin>
             <plugin>

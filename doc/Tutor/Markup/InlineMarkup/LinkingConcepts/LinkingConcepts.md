@@ -57,10 +57,8 @@ We can create a reference to the `InlineMarkup` concept in the current course in
 * `((Markup-InlineMarkup))` (using its parent concept name and concept name) gives ((Markup-InlineMarkup)).
 * `[see inline markup]((Tutor:Markup-InlineMarkup))` gives [see inline markup]((Tutor:Markup-InlineMarkup))
 
-(((TODO: uncomment the reference
-<!-- Here is a reference to another course:
-
-* `[Prelude collection]\(\(Library:Prelude\)\)` gives [Prelude collection]\(\(Library:Prelude\)\). -->)))
+Here is a reference to another course:
+* `[Prelude collection]\(\(Library:Prelude\)\)` gives [Prelude collection]\(\(Library:Prelude\)\).
 
 #### Benefits
 

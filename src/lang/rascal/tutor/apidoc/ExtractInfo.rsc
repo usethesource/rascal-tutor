@@ -219,6 +219,7 @@ rel[str, DocTag] getTagContents(Tags tags){
 list[DocTag] sortedDocTags(rel[str, DocTag] tags) 
   = [ *tags["doc"],
       *tags["synopsis"],
+      *tags["deprecated"],
       *tags["syntax"],
       *tags["types"],
       *tags["details"],

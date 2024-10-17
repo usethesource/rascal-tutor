@@ -121,7 +121,8 @@ list[Output] declInfo2Doc(str parent, d:moduleInfo(), list[str] overloads, PathC
 list[Output] declInfo2Doc(str parent, d:functionInfo(), list[str] overloads, PathConfig pcfg, CommandExecutor exec, Index ind, list[str] dtls, bool demo) =
     [
         out("## function <d.name> {<moduleFragment(d.moduleName)>-<d.name>}"),
-        *[Output::empty(), out(synopsis.content) | synopsis:docTag(label="synopsis") <- d.docs],
+        empty(),
+        *[out(defLine) | str defLine <- split("\n", d.synopsis)],
         empty(),
         out("```rascal"),
         *([ *[out(defLine) | str defLine <- split("\n", ov)], empty() | ov <- overloads][..-1]),

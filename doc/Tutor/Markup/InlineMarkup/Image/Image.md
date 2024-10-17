@@ -53,10 +53,8 @@ which produces this:
 
 <img src="/assets/Tutor/Markup/InlineMarkup/Image/dandelion.jpg" width="100px"/>
 
-
-(((TODO: uncomment the next link after bootstrapping
-<!-- Finally, have a look at the Library:module:Content library module and the listing feature to generate
-images using Rascal code at Tutor compile time. -->)))
+Finally, have a look at the Library:module:Content library module and the listing feature to generate
+images using Rascal code at Tutor compile time.
 
 #### Benefits
 

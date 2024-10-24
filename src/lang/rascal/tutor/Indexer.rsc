@@ -8,6 +8,7 @@ import util::Monitor;
 import IO;
 import ValueIO;
 import Location;
+import List;
 
 import lang::rascal::tutor::apidoc::DeclarationInfo;
 import lang::rascal::tutor::apidoc::ExtractInfo;
@@ -21,6 +22,17 @@ public alias Index = rel[str reference, str url];
 Index readConceptIndex(PathConfig pcfg) {
   return readBinaryValueFile(#Index, pcfg.bin + "index.value");
 }
+
+tuple[int modules, int concepts, int directories, int images] countCompilerWork(PathConfig pcfg) 
+  = <
+    size([*find(src, isFreshRascalFile(lm)) | src <- pcfg.srcs]),
+    size([*find(src, isFreshConceptFile(lm)) | src <- pcfg.srcs]),
+    size([*find(src, isDirectory) | src <- pcfg.srcs]),
+    size([*find(src, isImageFile) | src <- pcfg.srcs])
+  >
+  when 
+    loc targetFile := pcfg.bin + "index.value", 
+    datetime lm := (exists(targetFile) ? lastModified(targetFile) : $1970-01-01T00:00:00.000+00:00$);
 
 Index createConceptIndex(PathConfig pcfg) {
     targetFile = pcfg.bin + "index.value";

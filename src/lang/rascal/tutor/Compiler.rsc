@@ -83,7 +83,7 @@ list[Message] compile(PathConfig pcfg, CommandExecutor exec = createExecutor(pcf
 
   try {
     work = countCompilerWork(pcfg);
-    iprintln(work);
+    
     jobStart("Compiling concepts", totalWork=work.concepts);
     jobStart("Compiling images", totalWork=work.images);
     jobStart("Compiling directories", totalWork=work.directories);

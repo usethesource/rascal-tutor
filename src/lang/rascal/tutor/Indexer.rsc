@@ -8,6 +8,7 @@ import util::Monitor;
 import IO;
 import ValueIO;
 import Location;
+import List;
 
 import lang::rascal::tutor::apidoc::DeclarationInfo;
 import lang::rascal::tutor::apidoc::ExtractInfo;
@@ -21,6 +22,14 @@ public alias Index = rel[str reference, str url];
 Index readConceptIndex(PathConfig pcfg) {
   return readBinaryValueFile(#Index, pcfg.bin + "index.value");
 }
+
+tuple[int modules, int concepts, int directories, int images] countCompilerWork(PathConfig pcfg) 
+  = <
+    size([*find(src, bool (loc f) { return f.extension == "rsc";}) | src <- pcfg.srcs]),
+    size([*find(src, bool (loc f) { return f.extension == "md";}) | src <- pcfg.srcs]),
+    size([*find(src, bool (loc f) { return isDirectory(f) && f.file != "internal"; }) | src <- pcfg.srcs]),
+    size([*find(src, isImageFile) | src <- pcfg.srcs])
+  >;
 
 Index createConceptIndex(PathConfig pcfg) {
     targetFile = pcfg.bin + "index.value";
@@ -43,7 +52,7 @@ Index createConceptIndex(PathConfig pcfg) {
 }
 
 rel[str, str] createConceptIndex(list[loc] srcs, datetime lastModified, bool isPackageCourse, str packageName) 
-  = {*createConceptIndex(src, lastModified, isPackageCourse, packageName) | src <- srcs, bprintln("Indexing <src>")};
+  = {*createConceptIndex(src, lastModified, isPackageCourse, packageName) | src <- srcs};
 
 @synopsis{creates a lookup table for concepts nested in a folder}
 rel[str, str] createConceptIndex(loc src, datetime lastModified, bool isPackageCourse, str packageName) {
@@ -236,7 +245,7 @@ private bool(loc) isFreshRascalFile(datetime lM)
       return f.extension in {"rsc"} && lastModified(f) > lM;
     };
 
-private bool isImageFile(loc f) = f.extension in {"png", "jpg", "svg", "jpeg"};
+private bool isImageFile(loc f) = f.extension in {"png", "jpg", "svg", "jpeg", "html", "js"};
 
 @synopsis{ignores extracting errors because they will be found later}
 private list[DeclarationInfo] safeExtract(loc f) {

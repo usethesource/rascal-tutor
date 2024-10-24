@@ -30,6 +30,7 @@ import Location;
 import ParseTree;
 import util::Reflective;
 import util::FileSystem;
+import util::Monitor;
 import ValueIO;
 
 import lang::yaml::Model;
@@ -47,7 +48,7 @@ public PathConfig defaultConfig
   bin=|target://rascal-tutor/docs|,
   libs=[|lib://rascal|],
   srcs=[
-    |project://rascal-tutor/src/lang/rascal/tutor/examples/Test|
+    |project://rascal-tutor/src|
   ]);
 
 public list[Message] lastErrors = [];
@@ -80,7 +81,25 @@ list[Message] compile(PathConfig pcfg, CommandExecutor exec = createExecutor(pcf
   // remove trailing slashes
   pcfg.ignores = [i.parent + i.file | i <- pcfg.ignores];
 
-  return [*compileCourse(src, pcfg[currentRoot=src], exec, ind) | src <- pcfg.srcs];
+  try {
+    work = countCompilerWork(pcfg);
+    
+    jobStart("Compiling concepts", totalWork=work.concepts);
+    jobStart("Compiling images", totalWork=work.images);
+    jobStart("Compiling directories", totalWork=work.directories);
+    jobStart("Compiling modules", totalWork=work.modules);
+ 
+    return [*compileCourse(src, pcfg[currentRoot=src], exec, ind) | src <- pcfg.srcs];
+  }
+  catch value v: 
+    throw v;
+  finally {
+    jobEnd("Compiling concepts");
+    jobEnd("Compiling images");
+    jobEnd("Compiling directories");
+    jobEnd("Compiling modules");
+  }
+
 }
 
 void storeImportantProjectMetaData(PathConfig pcfg) {
@@ -265,7 +284,7 @@ list[Message] compile(loc src, PathConfig pcfg, CommandExecutor exec, Index ind,
     }
     else if (src.extension in {"png","jpg","svg","jpeg", "html", "js"}) {
         try {  
-          println("copying   <src> [Asset]");
+          jobStep("Compiling images", src.file);
           copy(src, pcfg.bin + (pcfg.isPackageCourse ? "assets/Packages/<package(pcfg.packageName)>" : "assets") + capitalize(pcfg.currentRoot.file) + relativize(pcfg.currentRoot, src).path);
           
           return [];
@@ -280,11 +299,11 @@ list[Message] compile(loc src, PathConfig pcfg, CommandExecutor exec, Index ind,
 }
 
 list[Message] compileDirectory(loc d, PathConfig pcfg, CommandExecutor exec, Index ind, int sidebar_position=-1) {
+    jobStep("Compiling directories", d.file);
+
     if (d in pcfg.ignores) {
       return [info("skipped ignored location: <d>", d)];
     }
-
-    println("compiling <d> [Folder]");
 
     indexFiles = {(d + "<d.file>")[extension="md"], (d + "index.md")};
 
@@ -307,7 +326,7 @@ list[Message] compileDirectory(loc d, PathConfig pcfg, CommandExecutor exec, Ind
         + relativize(pcfg.currentRoot, j)[extension="md"].path;
       
       if (!exists(targetFile) || lastModified(i) > lastModified(targetFile)) {
-        println("compiling <i> [Index Markdown]");
+        jobStep("Compiling concepts", j.file);
         output = compileMarkdown(i, pcfg[currentFile=i], exec, ind, sidebar_position=sidebar_position);
       
         writeFile(targetFile,
@@ -331,7 +350,6 @@ list[Message] compileDirectory(loc d, PathConfig pcfg, CommandExecutor exec, Ind
         }
       }
       else {
-        println("reusing   <i>");
         if (exists(targetFile[extension="errors"])) {
           errors = readBinaryValueFile(#list[Message], targetFile[extension="errors"]);
         }
@@ -385,6 +403,8 @@ list[Message] generateIndexFile(loc d, PathConfig pcfg, int sidebar_position=-1)
 
 @synopsis{Translates Rascal source files to docusaurus markdown.} 
 list[Message] compileRascalFile(loc m, PathConfig pcfg, CommandExecutor exec, Index ind) {
+  jobStep("Compiling modules", m.file);
+
   loc targetFile = pcfg.bin 
         + (pcfg.isPackageCourse ? "Packages/<package(pcfg.packageName)>" : "")
         + ((pcfg.isPackageCourse && pcfg.currentRoot.file in {"src","rascal","api"}) ? "API" : capitalize(pcfg.currentRoot.file))
@@ -403,7 +423,6 @@ list[Message] compileRascalFile(loc m, PathConfig pcfg, CommandExecutor exec, In
         + ((pcfg.isPackageCourse && pcfg.currentRoot.file in {"src","rascal","api"}) ? "API" : capitalize(pcfg.currentRoot.file))
         + relativize(pcfg.currentRoot, m).parent.path).path;
 
-    println("compiling <m> [Rascal Source File]");
     list[Output] output = generateAPIMarkdown(parentSlug, m, pcfg, exec, ind);
 
     writeFile(targetFile,
@@ -420,7 +439,6 @@ list[Message] compileRascalFile(loc m, PathConfig pcfg, CommandExecutor exec, In
     }
   }
   else {
-    println("reusing   <m>");
     if (exists(targetFile[extension="errors"])) {
       errors = readBinaryValueFile(#list[Message], targetFile[extension="errors"]);
     }
@@ -436,6 +454,7 @@ list[str] createDetailsList(loc m, PathConfig pcfg)
          ]);
 
 list[Message] compileMarkdownFile(loc m, PathConfig pcfg, CommandExecutor exec, Index ind, int sidebar_position=-1) {
+  jobStep("Compiling concepts", m.file);
   order = createDetailsList(m, pcfg);
 
   // turn A/B/B.md into A/B/index.md for better URLs in the end result (`A/B/`` is better than `A/B/B.html`)
@@ -449,7 +468,6 @@ list[Message] compileMarkdownFile(loc m, PathConfig pcfg, CommandExecutor exec, 
   errors = [];
 
   if (!exists(targetFile) || lastModified(m) > lastModified(targetFile)) {
-    println("compiling <m> [Normal Markdown]");
     list[Output] output = compileMarkdown(m, pcfg[currentFile=m], exec, ind, sidebar_position=sidebar_position) + [Output::empty()];
    
     writeFile(targetFile,
@@ -464,7 +482,6 @@ list[Message] compileMarkdownFile(loc m, PathConfig pcfg, CommandExecutor exec, 
     return errors;
   }
   else {
-    println("reusing   <m>");
     if (exists(targetFile[extension="errors"])) {
       // keep reporting the errors of the previous run, for clarity's sake
       return readBinaryValueFile(#list[Message], targetFile[extension="errors"]);
@@ -838,7 +855,6 @@ list[Output] compileRascalShell(list[str] block, bool allowErrors, bool isContin
     if (shot != "") {
       loc targetFile = pcfg.bin + "assets" + capitalize(pcfg.currentRoot.file) + relativize(pcfg.currentRoot, pcfg.currentFile)[extension=""].path;
       targetFile.file = targetFile.file + "_screenshot_<lineOffsetHere+lineOffset>.png";
-      println("screenshot <targetFile>");
       writeBase64(targetFile, shot);
       append OUT: out("```");
       append OUT: out("![image](<relativize(pcfg.bin, targetFile).path>)");
@@ -901,7 +917,6 @@ list[Output] compileRascalShellPrepare(list[str] block, bool isContinued, int li
     if (shot != "") {
       loc targetFile = pcfg.bin + "assets" + capitalize(pcfg.currentRoot.file) + relativize(pcfg.currentRoot, pcfg.currentFile)[extension=""].path;
       targetFile.file = targetFile.file + "_screenshot_<lineOffsetHere+lineOffset>.png";
-      println("screenshot <targetFile>");
       writeBase64(targetFile, shot);
       append OUT: out("![image](<relativize(pcfg.bin, targetFile).path>)");
     } 

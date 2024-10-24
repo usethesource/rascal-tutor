@@ -83,6 +83,7 @@ list[Message] compile(PathConfig pcfg, CommandExecutor exec = createExecutor(pcf
 
   try {
     work = countCompilerWork(pcfg);
+    iprintln(work);
     jobStart("Compiling concepts", totalWork=work.concepts);
     jobStart("Compiling images", totalWork=work.images);
     jobStart("Compiling directories", totalWork=work.directories);
@@ -273,15 +274,12 @@ list[Message] compile(loc src, PathConfig pcfg, CommandExecutor exec, Index ind,
     exec.reset();
 
     if (isDirectory(src), src.file != "internal") {
-        jobStep("Compiling directories", src.file);
         return compileDirectory(src, pcfg, exec, ind, sidebar_position=sidebar_position);
     }
     else if (src.extension == "rsc") {
-        jobStep("Compiling modules", src.file);
         return compileRascalFile(src, pcfg[currentFile=src], exec, ind);
     }
     else if (src.extension in {"md"}) {
-        jobStep("Compiling concepts", src.file);
         return compileMarkdownFile(src, pcfg, exec, ind, sidebar_position=sidebar_position);
     }
     else if (src.extension in {"png","jpg","svg","jpeg", "html", "js"}) {
@@ -301,6 +299,8 @@ list[Message] compile(loc src, PathConfig pcfg, CommandExecutor exec, Index ind,
 }
 
 list[Message] compileDirectory(loc d, PathConfig pcfg, CommandExecutor exec, Index ind, int sidebar_position=-1) {
+    jobStep("Compiling directories", d.file);
+
     if (d in pcfg.ignores) {
       return [info("skipped ignored location: <d>", d)];
     }
@@ -326,6 +326,7 @@ list[Message] compileDirectory(loc d, PathConfig pcfg, CommandExecutor exec, Ind
         + relativize(pcfg.currentRoot, j)[extension="md"].path;
       
       if (!exists(targetFile) || lastModified(i) > lastModified(targetFile)) {
+        jobStep("Compiling concepts", j.file);
         output = compileMarkdown(i, pcfg[currentFile=i], exec, ind, sidebar_position=sidebar_position);
       
         writeFile(targetFile,
@@ -402,6 +403,8 @@ list[Message] generateIndexFile(loc d, PathConfig pcfg, int sidebar_position=-1)
 
 @synopsis{Translates Rascal source files to docusaurus markdown.} 
 list[Message] compileRascalFile(loc m, PathConfig pcfg, CommandExecutor exec, Index ind) {
+  jobStep("Compiling modules", m.file);
+
   loc targetFile = pcfg.bin 
         + (pcfg.isPackageCourse ? "Packages/<package(pcfg.packageName)>" : "")
         + ((pcfg.isPackageCourse && pcfg.currentRoot.file in {"src","rascal","api"}) ? "API" : capitalize(pcfg.currentRoot.file))
@@ -451,6 +454,7 @@ list[str] createDetailsList(loc m, PathConfig pcfg)
          ]);
 
 list[Message] compileMarkdownFile(loc m, PathConfig pcfg, CommandExecutor exec, Index ind, int sidebar_position=-1) {
+  jobStep("Compiling concepts", m.file);
   order = createDetailsList(m, pcfg);
 
   // turn A/B/B.md into A/B/index.md for better URLs in the end result (`A/B/`` is better than `A/B/B.html`)

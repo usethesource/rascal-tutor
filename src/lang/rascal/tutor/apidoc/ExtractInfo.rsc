@@ -160,28 +160,33 @@ private Tree removeTags(Tree x) = visit(x) {
   case Tags _ => (Tags) ``
 };
 
+@synopsis{Start synopsis' with capitals and end with periods.}
+str sentenify(str synopsis:/^<head:[a-z]><tail:.*>/) = sentenify("<capitalize(head)><tail>");
+str sentenify(str synopsis:/[^\.]$/) = sentenify("<synopsis>.");
+default str sentenify(str x) = x;
+
 str getSynopsis(rel[str, DocTag] tags) {
     if (docTag(content=str docContents) <- tags["doc"]) {
       if ([*_, /^.Synopsis\s+<rest:.*>$/, *str cont, /^.[A-Za-z].*$/, *str _] := split("\n", docContents)) {
-        return intercalate(" ", [rest, *cont]);
+        return sentenify(trim(intercalate(" ", [rest, *cont])));
       }
       else if ([*_, /^#+\s*Synopsis\s+<rest:.*>$/, *str cont, /^.[A-Za-z].*$/, *str _] := split("\n", docContents)) {
-        return intercalate(" ", [rest, *cont]);
+        return sentenify(trim(intercalate(" ", [rest, *cont])));
       }
     }
 
     if (docTag(content=str docContents) <- tags["synopsis"]) {
       if (docTag(content=str deprMessage) <- tags["deprecated"]) {
-        return "<trim(intercalate(" ", split("\n", docContents)))>
+        return "<sentenify(trim(intercalate(" ", split("\n", docContents))))>
                '
                ':::warning
                '**deprecated: marked for future deletion**
-               '<deprMessage>
+               '<sentenify(trim(deprMessage))>
                '::: 
                '";
       }
       else {
-        return trim(intercalate(" ", split("\n", docContents)));
+        return sentenify(trim(intercalate(" ", split("\n", docContents))));
       }
       
     }

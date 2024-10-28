@@ -11,7 +11,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.release>11</maven.compiler.release>
 
-        <rascal-maven.version>0.28.2-BOOT1</rascal-maven.version>
+        <rascal-maven.version>0.28.7</rascal-maven.version>
     </properties>
 
     <scm>
@@ -160,7 +160,7 @@
         <dependency>
             <groupId>org.rascalmpl</groupId>
             <artifactId>rascal</artifactId>
-            <version>0.40.8</version>
+            <version>0.40.13</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

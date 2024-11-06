@@ -160,7 +160,7 @@
         <dependency>
             <groupId>org.rascalmpl</groupId>
             <artifactId>rascal</artifactId>
-            <version>0.40.13</version>
+            <version>0.40.16</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>

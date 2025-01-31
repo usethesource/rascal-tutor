@@ -1,8 +1,8 @@
 # Rascal Tutor
 
 > *Archival*
-> rascal-tutor has been merge into the [Rascal project](https://github.com/usethesource/rascal)
-> for better cohesion and easier bootstrapping.
+> rascal-tutor has been merged into the [Rascal project](https://github.com/usethesource/rascal)
+> for better cohesion and easier bootstrapping. The current project is kept for archival reasons only.
 
 The Rascal tutor is a pre-processor that generates Markdown files from the following input:
 * Markdown files structured in a hierarchical folder structure
